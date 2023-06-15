@@ -1,0 +1,28 @@
+{
+  "name": "assman",
+  "version": "1.0.0",
+  "description": "This is created to allow a master machine to execute any type of command on the slave machines.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datnguyen1215/assman.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/datnguyen1215/assman/issues"
+  },
+  "homepage": "https://github.com/datnguyen1215/assman#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.22.5",
+    "@babel/core": "^7.22.5",
+    "@babel/node": "^7.22.5",
+    "@babel/register": "^7.22.5",
+    "jscommon": "github:datnguyen1215/jscommon",
+    "nodemon": "^2.0.22"
+  }
+}
