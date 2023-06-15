@@ -4,7 +4,10 @@
   "description": "This is created to allow a master machine to execute any type of command on the slave machines.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require @babel/register"
+  },
+  "imports": {
+    "#src/*": "./src/*.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +24,11 @@
     "@babel/cli": "^7.22.5",
     "@babel/core": "^7.22.5",
     "@babel/node": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
     "@babel/register": "^7.22.5",
+    "chai": "^4.3.7",
     "jscommon": "github:datnguyen1215/jscommon",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22"
   }
 }
