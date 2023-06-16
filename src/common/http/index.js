@@ -18,11 +18,10 @@ let servers = {
  * Starts the server.
  * @param {ServerConfig} [config={}]
  */
-const start = (config = {}) => {
+const start = (config = {}, routes) => {
   return new Promise((resolve, reject) => {
     config = lodash.merge({}, DEFAULT_CONFIG, config);
-
-    servers = Server.create();
+    servers = Server.create(routes);
     servers.http.listen(config.port, err => {
       if (err) return reject(err);
       resolve(servers);

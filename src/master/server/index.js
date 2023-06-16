@@ -1,8 +1,9 @@
 import { WebSocketServer } from 'jscommon/websocket';
-import http from './http';
+import http from '#src/common/http/index';
+import routes from './http/routes';
 
 (async () => {
-  const servers = await http.start();
+  const servers = await http.start({ port: 9358 }, routes());
   const wss = new WebSocketServer({ server: servers.http });
 
   wss.on('connection', ws => {

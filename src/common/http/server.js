@@ -1,13 +1,16 @@
 import http from 'http';
 import express from 'express';
-import routes from './routes';
 
-const create = () => {
+const create = routes => {
   const app = express();
   const server = http.createServer(app);
 
   // handle routes
-  app.use('/', routes());
+  if (routes) app.use('/', routes);
+
+  app.use('/health', (_, res) => {
+    res.status(200).send('OK');
+  });
 
   return { express: app, http: server };
 };
