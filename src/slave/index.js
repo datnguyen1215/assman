@@ -1,1 +1,2 @@
-import { EventEmitter } from 'jscommon/events';
+import discovery from './discovery/';
+discovery.start();

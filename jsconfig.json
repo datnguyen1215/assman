@@ -4,6 +4,6 @@
     "paths": {
       "#src/*": ["./src/*"]
     },
-    "module": "es6"
+    "module": "node16"
   }
 }
