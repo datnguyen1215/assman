@@ -4,7 +4,8 @@
   "description": "This is created to allow a master machine to execute any type of command on the slave machines.",
   "main": "index.js",
   "scripts": {
-    "slave": "nodemon --delay 1s --watch src/slave/ --exec \"babel-node src/slave/index.js\"",
+    "master:server": "nodemon --delay 1s --watch src/master/server/ src/common/ --exec \"babel-node src/master/server/index.js\"",
+    "slave": "nodemon --delay 1s --watch src/slave/ /src/common/ --exec \"babel-node src/slave/index.js\"",
     "test": "mocha --require @babel/register"
   },
   "imports": {
@@ -33,6 +34,7 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "module-alias": "^2.2.3"
   }
 }
