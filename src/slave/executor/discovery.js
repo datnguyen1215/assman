@@ -12,7 +12,7 @@ const start = async () => {
     try {
       message = JSON.parse(message);
       switch (message.type) {
-        case 'master:discovery':
+        case 'master:discover':
           const { uuid, host, port } = message.data;
           bus.emit('master', { uuid, host, port });
           break;

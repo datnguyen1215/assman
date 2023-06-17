@@ -6,5 +6,5 @@ import Executor from './executor';
   const PORT = 9359;
   await http.start({ port: PORT }, routes());
 
-  const executor  = await Executor.create();
+  await Executor.create();
 })();
