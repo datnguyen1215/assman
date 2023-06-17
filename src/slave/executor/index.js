@@ -10,6 +10,7 @@
 import discovery from './discovery';
 import connection from './connection';
 import { EventEmitter } from 'jscommon/events';
+import assert from 'assert';
 
 class Master extends EventEmitter {
   constructor(details) {
@@ -48,6 +49,8 @@ class Master extends EventEmitter {
       port: this.port
     });
 
+    console.log('connected to master', this.uuid);
+
     const onRequest = (request, response) =>
       this.emit('request', request, response);
 
@@ -74,7 +77,7 @@ class Master extends EventEmitter {
  * @returns {Promise<Executor>}
  */
 const create = async () => {
-  const masters = {};
+  const masters = [];
 
   await discovery.start();
 
@@ -84,8 +87,8 @@ const create = async () => {
       const master = new Master({ uuid, host, port });
       await master.connect();
       masters.push(master);
-      console.log('connected to master', JSON.stringify(info));
     } catch (err) {
+      console.error(err);
       console.error('unable to connect to master', JSON.stringify(info));
     }
   });

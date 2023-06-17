@@ -17,7 +17,7 @@ const create = config => {
 
     const ws = new WebSocket(url);
     ws.onopen = () => {
-      connection = new WebSocketConnection(ws);
+      const connection = new WebSocketConnection(ws);
       resolve(connection);
     };
 

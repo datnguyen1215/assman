@@ -7,24 +7,32 @@ import { v4 as uuid } from 'uuid';
 const id = uuid();
 console.log('id', id);
 
+const startWebSocketServer = httpServer => {
+  const wss = new WebSocketServer({ server: httpServer });
+  wss.on('connection', ws => {
+    console.log('new connection');
+  });
+
+  wss.listen();
+};
+
+const startHttpServer = async () => {
+  return await http.start(null, routes());
+};
+
 (async () => {
-  const servers = await http.start({ port: 9358 }, routes());
-  const wss = new WebSocketServer({ server: servers.http });
+  const servers = await startHttpServer();
+  startWebSocketServer(servers.http);
+
   const discovery = new DiscoveryService();
 
   console.log('sending discovery message');
   await discovery.send({
-    type: 'master:discovery',
+    type: 'master:discover',
     data: {
       uuid: id,
       host: 'localhost',
       port: 9358
     }
   });
-
-  wss.on('connection', ws => {
-    console.log('connection', ws);
-  });
-
-  wss.listen();
 })();
