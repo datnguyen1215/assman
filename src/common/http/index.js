@@ -35,6 +35,7 @@ const start = (config = {}, routes) => {
 const stop = () => {
   return new Promise(resolve => {
     servers.http.close(() => {
+      servers = { express: null, http: null };
       resolve();
     });
   });
