@@ -7,7 +7,7 @@
  * @typedef {Object} Executor
  * @property {() => Promise<void>} dispose
  */
-import discovery from './discovery';
+import { Discovery as DiscoveryService } from '#src/common/discovery';
 import connection from './connection';
 import { EventEmitter } from 'jscommon/events';
 import assert from 'assert';
@@ -19,12 +19,18 @@ class Master extends EventEmitter {
     assert(details.uuid, 'uuid is required');
     assert(details.host, 'host is required');
     assert(details.port, 'port is required');
+
     /** @private */
     this.details = details;
+
     /** @type {import('jscommon/websocket').WebSocketConnection} */
     this.socket = null;
 
     this.disposers = [];
+  }
+
+  get name() {
+    return this.details.name;
   }
 
   get uuid() {
@@ -49,7 +55,13 @@ class Master extends EventEmitter {
       port: this.port
     });
 
-    console.log('connected to master', this.uuid);
+    console.log(
+      'connected to master',
+      this.uuid,
+      this.host,
+      this.port,
+      this.name
+    );
 
     const onRequest = (request, response) =>
       this.emit('request', request, response);
@@ -59,7 +71,7 @@ class Master extends EventEmitter {
 
     this.disposers.push(async () => {
       this.socket.off('request', onRequest);
-      await this.socket.close();
+      await this.socket.dispose();
     });
   }
 
@@ -77,25 +89,48 @@ class Master extends EventEmitter {
  * @returns {Promise<Executor>}
  */
 const create = async () => {
-  const masters = [];
-
-  await discovery.start();
+  let masters = [];
+  const discovery = new DiscoveryService();
 
   discovery.on('master', async info => {
     try {
-      const { uuid, host, port } = info;
-      const master = new Master({ uuid, host, port });
-      await master.connect();
-      masters.push(master);
+      assert(info.uuid, 'uuid is required');
+      assert(info.hosts, 'hosts is required');
+      assert(Array.isArray(info.hosts), 'hosts must be an array');
+      assert(info.port, 'port is required');
+
+      // For each host, try to connect, if successful, abort.
+      for (const host of info.hosts) {
+        try {
+          const master = new Master({ ...info, host });
+          await master.connect();
+
+          // Clean up master in case that it's disconnected.
+          master.once('close', () => {
+            console.log('master disconnected', master.uuid);
+            master.dispose();
+            masters = masters.filter(m => m !== master);
+          });
+
+          masters.push(master);
+          break;
+        } catch (err) {
+          continue;
+        }
+      }
     } catch (err) {
-      console.error(err);
-      console.error('unable to connect to master', JSON.stringify(info));
+      console.error(
+        `unable to connect to master ${JSON.stringify(info)}: ${err}`
+      );
     }
   });
 
+  await discovery.listen();
+
   const dispose = async () => {
     for (const master of masters) await master.dispose();
-    await discovery.stop();
+    masters = [];
+    discovery.dispose();
   };
 
   return { dispose };
