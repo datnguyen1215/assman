@@ -54,13 +54,13 @@ class Discovery extends EventEmitter {
       socket.on('message', msg => {
         try {
           const message = JSON.parse(msg.toString());
-          switch (message.type) {
+          switch (message.command) {
             case 'master:discover':
               this.emit('master', message.data);
               break;
 
             default:
-              throw new Error('Invalid message type');
+              throw new Error('Invalid command');
           }
         } catch (err) {
           console.error(err);
@@ -81,7 +81,7 @@ class Discovery extends EventEmitter {
     assert(data.name, 'Missing name');
     assert(data.hosts, 'Missing hosts');
     assert(data.port, 'Missing port');
-    await this.send({ type: 'master:discover', data });
+    await this.send({ command: 'master:discover', data });
   }
 
   /**
