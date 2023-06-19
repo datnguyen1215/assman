@@ -5,6 +5,8 @@ To support file transfers, we need to support these 2 cases:
 1. Master -> Slave
 2. Slave -> Master
 
+Every messages follow the request/response or event concept described [here](./websocket.md).
+
 ## Master to Slave
 
 #### How it works
@@ -15,7 +17,7 @@ The Master can choose to mass transfer files to all the connected Slaves.
 1. The Master sends a message to the Slave
 1. The Slave downloads the files into their machines, putting them in: downloads/ folder.\
 
-#### Communication
+#### FilesDownloadPayload
 
 Sending files payload:
 
@@ -56,7 +58,7 @@ We can't use the steps above because the Slaves aren't supposed to send files. T
 1. The Slave responds back to the Master with the URL that exposes the file.
 1. The Master downloads the file and put it into downloads/ folder.
 
-#### Communication
+#### FilesExposePayload
 
 Getting file payload:
 
