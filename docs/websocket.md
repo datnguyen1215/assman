@@ -15,7 +15,7 @@ There will be 2 different message types for the communication:
 
 A request is a message type that requires a response. Therefore, the `id` field is to determine which request the response is for.
 
-A `REQUEST` is usually used for commands for anything that requires a feedback from the receiver.
+A `REQUEST` is usually used for actions for anything that requires a feedback from the receiver.
 
 ```json
 {

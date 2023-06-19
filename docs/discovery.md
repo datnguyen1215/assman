@@ -19,7 +19,7 @@ This message is sent by the Master to the Multicast group to advertise its host 
 
 ```js
 {
-  "command": "discover",
+  "action": "discover",
   "data": {
     "uuid": "master-uuid", // unique identifier for the master
     "name": "Name of the master" // usually, it should be the user name.

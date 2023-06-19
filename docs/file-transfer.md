@@ -23,7 +23,7 @@ Sending files payload:
 
 ```js
 {
-  "command": "files:download",
+  "action": "files:download",
   "data": {
     "files": [
       "http://localhost:3000/upload/1.txt",
@@ -64,7 +64,7 @@ Getting file payload:
 
 ```js
 {
-  "command": "files:expose",
+  "action": "files:expose",
   "data": {
     "files": [
       "C:\\Users\\Test\\Downloads\\1.txt",

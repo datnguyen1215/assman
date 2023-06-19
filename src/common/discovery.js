@@ -54,7 +54,7 @@ class Discovery extends EventEmitter {
       socket.on('message', msg => {
         try {
           const message = JSON.parse(msg.toString());
-          switch (message.command) {
+          switch (message.action) {
             case 'discover':
               this.emit('master', message.data);
               break;
@@ -81,7 +81,7 @@ class Discovery extends EventEmitter {
     assert(data.name, 'Missing name');
     assert(data.hosts, 'Missing hosts');
     assert(data.port, 'Missing port');
-    await this.send({ command: 'discover', data });
+    await this.send({ action: 'discover', data });
   }
 
   /**
