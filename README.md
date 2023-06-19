@@ -19,4 +19,4 @@ There are a few features that this need to support:
 
 ## Documentation
 
-Please refer to [this page]('docs/README.md') for documentation.
+Please refer to [this page](./docs/README.md) for documentation.
