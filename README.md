@@ -9,9 +9,14 @@ I hate working on Windows. However, my work requires me to work with Windows ext
 Also a coworker needs this to control multiple computers at the same time.
 
 ## Features
+
 There are a few features that this need to support:
 
 - Execute a command on the slave machines
 - Run multiple commands one by one (scripting)
 - Auto discovery slave machines using Multicast
 - Transfer file
+
+## Documentation
+
+Please refer to [this page]('./docs/README.md') for documentation.
