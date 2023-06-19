@@ -16,7 +16,7 @@ Please refer to [this documentation](./discovery.md).
 
 #### File Transfer
 
-Please refer to [this documentation](!./file-transfer.md).
+Please refer to [this documentation](./file-transfer.md).
 
 #### Command Line Execution
 

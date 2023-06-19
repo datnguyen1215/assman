@@ -17,7 +17,7 @@ Since Masters and Slaves are in the same LAN network, we can easily discover the
 
 This message is sent by the Master to the Multicast group to advertise its host and port for the Slaves to connect to.
 
-```json
+```js
 {
   "command": "discover",
   "data": {
